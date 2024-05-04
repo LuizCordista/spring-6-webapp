@@ -5,23 +5,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Objects;
+
 @Entity
 public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String publisherName;
     private String address;
     private String city;
     private String state;
     private String zip;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -83,11 +85,11 @@ public class Publisher {
         if (o == null || getClass() != o.getClass()) return false;
 
         Publisher publisher = (Publisher) o;
-        return getId() == publisher.getId();
+        return Objects.equals(getId(), publisher.getId());
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(getId());
+        return Objects.hashCode(getId());
     }
 }
