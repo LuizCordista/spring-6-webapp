@@ -16,7 +16,8 @@ public class BootstrapData implements CommandLineRunner {
     private final BookRepository bookRepository;
     private final PublisherRepository publisherRepository;
 
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository,
+                         PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
@@ -49,17 +50,23 @@ public class BootstrapData implements CommandLineRunner {
         ericSaved.getBooks().add(dddSaved);
         rodSaved.getBooks().add(noEJBSaved);
 
-        authorRepository.save(ericSaved);
-        authorRepository.save(rodSaved);
-
         Publisher prh = new Publisher();
         prh.setPublisherName("Penguin Random House");
         prh.setCity("New York");
         prh.setState("New York");
         prh.setAddress("1745 Broadway");
         prh.setZip("10019");
-
         Publisher prhSaved = publisherRepository.save(prh);
+
+        dddSaved.setPublisher(prhSaved);
+        noEJBSaved.setPublisher(prhSaved);
+
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
+
+        authorRepository.save(ericSaved);
+        authorRepository.save(rodSaved);
+
 
 
         System.out.println("In Bootstrap");
